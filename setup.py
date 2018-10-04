@@ -11,7 +11,6 @@ with open('hatch/__init__.py', 'r') as f:
 with open('README.rst', 'r', encoding='utf-8') as f:
     readme = f.read()
 
-
 setup(
     name='hatch',
     version=version,
@@ -70,12 +69,12 @@ setup(
         'wheel>=0.27.0',
     ),
     setup_requires=('appdirs', 'atomicwrites'),
-    tests_require=('parse', ),
+    tests_require=('parse',),
 
     packages=find_packages(),
     entry_points={
         'console_scripts': (
             'hatch = hatch.cli:hatch',
         ),
-    },
+    }
 )

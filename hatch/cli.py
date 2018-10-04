@@ -2,7 +2,7 @@ import click
 
 from hatch.commands import (
     build, clean, conda, config, env, grow, init, install, new, pypath,
-    python, release, shed, shell, test, uninstall, update
+    python, release, shed, shell, test, uninstall, update, autocomplete
 )
 from hatch.commands.utils import CONTEXT_SETTINGS
 
@@ -37,3 +37,4 @@ hatch.add_command(shell)
 hatch.add_command(test)
 hatch.add_command(uninstall)
 hatch.add_command(update)
+hatch.add_command(autocomplete)
