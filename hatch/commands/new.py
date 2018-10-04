@@ -137,7 +137,7 @@ def new(name, no_env, pyname, pypath, global_packages, env_name, basic, cli,
         if not no_env:
             venv_dir = os.path.join(d, 'venv')
             echo_waiting('Creating its own virtual env... ', nl=False)
-            create_venv(venv_dir, pypath=pypath, use_global=global_packages)
+            create_venv(venv_dir, pypath=pypath, use_global=global_packages, venv_prompt=venv_prompt or package_name)
             echo_success('complete!')
 
             with venv(venv_dir):
@@ -149,7 +149,7 @@ def new(name, no_env, pyname, pypath, global_packages, env_name, basic, cli,
             venv_dir = os.path.join(get_venv_dir(), vname)
             if not os.path.exists(venv_dir):
                 echo_waiting('Creating virtual env `{}`... '.format(vname), nl=False)
-                create_venv(venv_dir, pypath=pypath, use_global=global_packages)
+                create_venv(venv_dir, pypath=pypath, use_global=global_packages, venv_prompt=vname)
                 echo_success('complete!')
 
             with venv(venv_dir):
