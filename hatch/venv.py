@@ -9,7 +9,7 @@ from hatch.clean import remove_compiled_scripts
 from hatch.config import get_proper_python, get_venv_dir
 from hatch.exceptions import InvalidVirtualEnv
 from hatch.utils import (
-    NEED_SUBPROCESS_SHELL, ON_WINDOWS, env_vars, get_random_venv_name, resolve_path
+    NEED_SUBPROCESS_SHELL, ON_WINDOWS, env_vars, get_random_venv_name, resolve_path, read_dotenv
 )
 
 
@@ -164,6 +164,8 @@ def venv(d, evars=None):
     evars['PATH'] = '{}{}{}'.format(
         venv_exe_dir, os.pathsep, os.environ.get('PATH', '')
     )
+
+    evars.update(read_dotenv())
 
     with env_vars(evars, ignore={'__PYVENV_LAUNCHER__'}):
         yield venv_exe_dir

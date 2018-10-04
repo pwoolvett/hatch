@@ -215,6 +215,18 @@ def env_vars(evars, ignore=None):
             os.environ[ev] = ignored_evars[ev]
 
 
+def read_dotenv(path='.env'):
+    result = {}
+    if os.path.isfile(path):
+        envre = re.compile(r'''^([^\s=]+)=(?:[\s"']*)(.+?)(?:[\s"']*)$''')
+        with open(path) as ins:
+            for line in ins:
+                match = envre.match(line)
+                if match is not None:
+                    result[match.group(1)] = match.group(2)
+    return result
+
+
 @contextmanager
 def temp_move_path(path, d):
     if os.path.exists(path):
