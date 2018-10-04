@@ -7,7 +7,7 @@ import click
 from hatch.commands.utils import (
     CONTEXT_SETTINGS, echo_failure, echo_info, echo_success, echo_waiting
 )
-from hatch.config import get_proper_pip, get_venv_dir
+from hatch.config import get_proper_pip, get_venv_dir, get_venv_folder
 from hatch.env import install_packages
 from hatch.utils import (
     NEED_SUBPROCESS_SHELL, ON_WINDOWS, get_admin_command, is_project, venv_active
@@ -76,7 +76,7 @@ def install(packages, no_detect, env_name, editable, global_install, admin, quie
             echo_waiting('Installing in virtual env `{}`...'.format(env_name))
             result = subprocess.run(command, shell=NEED_SUBPROCESS_SHELL)
     elif not venv_active() and not no_detect and is_project():
-        venv_dir = os.path.join(os.getcwd(), 'venv')
+        venv_dir = os.path.join(os.getcwd(), get_venv_folder())
         if not is_venv(venv_dir):
             echo_info('A project has been detected!')
             echo_waiting('Creating a dedicated virtual env... ', nl=False)

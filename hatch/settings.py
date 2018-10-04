@@ -15,6 +15,7 @@ DEFAULT_SETTINGS = OrderedDict([
     ('shell', ''),
     ('python_dir', 'shared'),
     ('venv_dir', 'shared'),
+    ('venv_folder', 'venv'),
     ('pypaths', OrderedDict([])),
     ('semver', OrderedDict([
         ('pre', ''),

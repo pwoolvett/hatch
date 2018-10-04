@@ -4,6 +4,7 @@ from os.path import join
 from pathlib import Path
 
 from hatch.utils import is_project, remove_path
+from hatch.config import get_venv_folder
 
 DELETE_IN_ROOT = {
     '.cache',
@@ -86,7 +87,7 @@ def generate_walker(d, detect_project=True):
 
     try:
         if detect_project and is_project(d):
-            dirs.remove('venv')
+            dirs.remove(get_venv_folder())
     except ValueError:
         pass
 

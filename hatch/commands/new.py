@@ -6,7 +6,7 @@ import click
 from hatch.commands.utils import (
     CONTEXT_SETTINGS, echo_failure, echo_success, echo_waiting, echo_warning
 )
-from hatch.config import get_venv_dir
+from hatch.config import get_venv_dir, get_venv_folder
 from hatch.create import create_package
 from hatch.env import install_packages
 from hatch.settings import copy_default_settings, load_settings
@@ -38,6 +38,10 @@ from hatch.venv import create_venv, venv
                   'Forward-slash-separated list of named virtual envs to be '
                   "installed in. Will create any that don't already exist."
               ))
+@click.option('-vp', '--venv-prompt', 'venv_prompt',
+              help=(
+                  'Alternative prompt name to appear in the virtualenv'
+              ))
 @click.option('--basic', is_flag=True,
               help='Disables third-party services and readme badges.')
 @click.option('--cli', is_flag=True,
@@ -50,8 +54,8 @@ from hatch.venv import create_venv, venv
 @click.option('-l', '--licenses',
               help='Comma-separated list of licenses to use.')
 @click.option('-i', '--interactive', is_flag=True, help='Invokes interactive mode.')
-def new(name, no_env, pyname, pypath, global_packages, env_name, basic, cli,
-        licenses, interactive):
+def new(name, no_env, pyname, pypath, global_packages, env_name, venv_prompt, basic,
+        cli, licenses, interactive):
     """Creates a new Python project.
 
     Values from your config file such as `name` and `pyversions` will be used
@@ -135,7 +139,7 @@ def new(name, no_env, pyname, pypath, global_packages, env_name, basic, cli,
         echo_success('Created project `{}`'.format(package_name))
 
         if not no_env:
-            venv_dir = os.path.join(d, 'venv')
+            venv_dir = os.path.join(d, get_venv_folder())
             echo_waiting('Creating its own virtual env... ', nl=False)
             create_venv(venv_dir, pypath=pypath, use_global=global_packages, venv_prompt=venv_prompt or package_name)
             echo_success('complete!')

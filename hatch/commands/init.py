@@ -6,7 +6,7 @@ import click
 from hatch.commands.utils import (
     CONTEXT_SETTINGS, echo_failure, echo_success, echo_waiting, echo_warning
 )
-from hatch.config import get_venv_dir
+from hatch.config import get_venv_dir, get_venv_folder
 from hatch.create import create_package
 from hatch.env import install_packages
 from hatch.settings import copy_default_settings, load_settings
@@ -128,7 +128,7 @@ def init(name, no_env, pyname, pypath, global_packages, env_name, basic, cli,
             sys.exit(1)
 
     if not no_env:
-        venv_dir = os.path.join(cwd, 'venv')
+        venv_dir = os.path.join(cwd, get_venv_folder())
         echo_waiting('Creating its own virtual env... ', nl=False)
         create_venv(venv_dir, pypath=pypath, use_global=global_packages)
         echo_success('complete!')

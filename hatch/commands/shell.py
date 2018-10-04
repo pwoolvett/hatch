@@ -8,7 +8,7 @@ import click
 from hatch.commands.utils import (
     UNKNOWN_OPTIONS, echo_failure, echo_info, echo_success, echo_waiting
 )
-from hatch.config import get_venv_dir
+from hatch.config import get_venv_dir, get_venv_folder
 from hatch.env import install_packages
 from hatch.settings import load_settings
 from hatch.shells import run_shell
@@ -127,7 +127,7 @@ def shell(env_name, command, shell_name, temp_env, pyname, pypath, global_packag
 
     if not (env_name or temp_env):
         if is_project():
-            venv_dir = os.path.join(os.getcwd(), 'venv')
+            venv_dir = os.path.join(os.getcwd(), get_venv_folder())
             if not is_venv(venv_dir):
                 echo_info('A project has been detected!')
                 echo_waiting('Creating a dedicated virtual env... ', nl=False)

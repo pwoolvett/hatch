@@ -88,3 +88,24 @@ def __get_venv_dir_cache(f):
 @__get_venv_dir_cache
 def get_venv_dir():
     pass  # no cov
+
+
+def __get_venv_folder_cache(f):
+    cached_venv_folder = None
+
+    @wraps(f)
+    def wrapper(cached=True, reset=False):
+        nonlocal cached_venv_folder
+
+        if not cached or not cached_venv_folder or reset:
+            venv_folder = os.environ.get('_VENV_FOLDER_') or load_settings(lazy=True).get('venv_folder')
+            cached_venv_folder = venv_folder or 'venv'
+
+        return cached_venv_folder
+
+    return wrapper
+
+
+@__get_venv_folder_cache
+def get_venv_folder():
+    pass  # no cov

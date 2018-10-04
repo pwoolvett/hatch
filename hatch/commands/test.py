@@ -8,7 +8,7 @@ import click
 from hatch.commands.utils import (
     CONTEXT_SETTINGS, echo_failure, echo_info, echo_success, echo_waiting
 )
-from hatch.config import get_proper_python
+from hatch.config import get_proper_python, get_venv_folder
 from hatch.env import get_editable_package_location, install_packages
 from hatch.utils import (
     NEED_SUBPROCESS_SHELL, chdir, get_requirements_file, is_project,
@@ -155,7 +155,7 @@ def test(package, local, path, cov, merge, test_args, cov_args, global_exe, no_d
 
     venv_dir = None
     if not (package or local) and not venv_active() and not no_detect and is_project():
-        venv_dir = os.path.join(path, 'venv')
+        venv_dir = os.path.join(path, get_venv_folder())
         if not is_venv(venv_dir):
             echo_info('A project has been detected!')
             echo_waiting('Creating a dedicated virtual env... ', nl=False)

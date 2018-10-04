@@ -10,7 +10,7 @@ from hatch.commands.utils import (
     CONTEXT_SETTINGS, echo_failure, echo_info, echo_success, echo_waiting,
     echo_warning
 )
-from hatch.config import get_proper_pip, get_proper_python, get_venv_dir
+from hatch.config import get_proper_pip, get_proper_python, get_venv_dir, get_venv_folder
 from hatch.env import get_installed_packages, install_packages
 from hatch.utils import (
     NEED_SUBPROCESS_SHELL, ON_WINDOWS, basepath, get_admin_command,
@@ -118,7 +118,7 @@ def update(packages, no_detect, env_name, eager, all_packages, infra, global_ins
             else:
                 installed_packages = None
     elif not self and not venv_active() and not no_detect and is_project():
-        venv_dir = os.path.join(os.getcwd(), 'venv')
+        venv_dir = os.path.join(os.getcwd(), get_venv_folder())
         if not is_venv(venv_dir):
             echo_info('A project has been detected!')
             echo_waiting('Creating a dedicated virtual env... ', nl=False)
